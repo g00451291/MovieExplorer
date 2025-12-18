@@ -2,23 +2,26 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private async void OnFavouriteClicked(object sender, EventArgs e)
         {
-            count++;
+            var button = (Button)sender;
+            var movie = (MovieExplorer.Models.Movie)button.CommandParameter;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            bool exists = await MovieExplorer.Services.HistoryService.IsAlreadyFavorited(movie.Title);
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            if (exists)
+            {
+                await DisplayAlert("Already Saved", $"{movie.Title} is already in your favourites!", "OK");
+                return;
+            }
+
+            await MovieExplorer.Services.HistoryService.SaveToHistoryAsync(movie, true);
+            await DisplayAlert("Success", $"{movie.Title} added to Favourites!", "OK");
         }
     }
 }

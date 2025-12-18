@@ -1,0 +1,31 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieExplorer.FavouritesPage"
+             Title="My Favourites">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Button Text="Clear All Favourites" 
+                Clicked="OnClearAllClicked" 
+                BackgroundColor="DarkRed" 
+                TextColor="White" 
+                CornerRadius="10"
+                HorizontalOptions="Fill" />
+
+        <CollectionView x:Name="HistoryList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="15" Padding="10">
+                        <Label Text="{Binding Emoji}" FontSize="24"/>
+                        <VerticalStackLayout>
+                            <Label Text="{Binding MovieTitle}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Timestamp, StringFormat='Added on {0:MM/dd HH:mm}'}" 
+                                   FontSize="10" TextColor="Gray"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

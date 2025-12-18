@@ -5,11 +5,16 @@
         public AppShell()
         {
             InitializeComponent();
-            CheckUserStatus();
         }
 
-        private async void CheckUserStatus()
+        protected override async void OnAppearing()
         {
+            base.OnAppearing();
+            await CheckUserStatus();
+        }
+        private async Task CheckUserStatus()
+        {
+            Preferences.Default.Clear(); // For testing purposes only. Remove this line in production.
             string userName = Preferences.Default.Get("UserName", string.Empty);
 
             if (string.IsNullOrEmpty(userName))
@@ -19,11 +24,10 @@
                 if (!string.IsNullOrEmpty(result))
                 {
                     Preferences.Default.Set("UserName", result.Trim());
-                    await DisplayAlert("Hello!", $"Welcome to Movie Explorer, {result}!", "Thanks");
                 }
                 else
                 {
-                    await DisplayAlert("Notice", "You did not enter a name. You can set it later in settings.", "OK");
+                    Preferences.Default.Set("UserName", "Guest");
                 }
             }
         }

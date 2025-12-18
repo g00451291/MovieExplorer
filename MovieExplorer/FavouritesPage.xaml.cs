@@ -22,7 +22,7 @@ public partial class FavouritesPage : ContentPage
         if (confirm)
         {
             MovieExplorer.Services.HistoryService.ClearAllHistory();
-            HistoryList.ItemsSource = null; // Refresh the UI
+            HistoryList.ItemsSource = null; 
         }
     }
 }

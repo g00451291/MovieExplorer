@@ -7,18 +7,16 @@
     Title="Movie Explorer">
 
     <TabBar>
-        <Tab Title="Browse">
-            <ShellContent
-                Title="Home"
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="MainPage" />
+        <Tab Title="Browse" Icon="browse_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
 
-        <Tab Title="Favourites">
-            <ShellContent
-                Title="My Favourites"
-                ContentTemplate="{DataTemplate local:FavouritesPage}"
-                Route="FavouritesPage" />
+        <Tab Title="Favourites" Icon="fav_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:FavouritesPage}" />
+        </Tab>
+
+        <Tab Title="Settings" Icon="settings_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingPage}" />
         </Tab>
     </TabBar>
 </Shell>

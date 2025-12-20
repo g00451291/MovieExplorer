@@ -7,7 +7,10 @@ namespace MovieExplorer.ViewModels
 {
     public class MoviesViewModel : BindableObject
     {
+        // Stores the full list of movies
         private List<Movie> _allMovies = new();
+
+        // The list that shows up on the screen
         public ObservableCollection<Movie> FilteredMovies { get; set; } = new();
 
         private string _searchText;
@@ -27,6 +30,7 @@ namespace MovieExplorer.ViewModels
 
         public MoviesViewModel()
         {
+            // Get the movies when this page is created
             LoadMovies();
         }
 
@@ -35,18 +39,22 @@ namespace MovieExplorer.ViewModels
             var movies = await Movieservice.GetMoviesAsync();
             _allMovies = movies;
 
+            // Show movies on the screen
             PerformSearch();
         }
 
+        // Filters the list based on what the user types
         private void PerformSearch()
         {
             var results = _allMovies.AsEnumerable();
 
+            // If user typed something, filter by title
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 results = results.Where(m => m.Title.ToLower().Contains(SearchText.ToLower()));
             }
 
+            // Clear the old list and add the new search results
             FilteredMovies.Clear();
             foreach (var movie in results)
             {

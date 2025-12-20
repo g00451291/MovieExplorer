@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieExplorer.Models
-{
-    public class Movie
+{    public class Movie
     {
+        // Link JSON "title" to this property
         [System.Text.Json.Serialization.JsonPropertyName("title")]
         public string Title { get; set; }
 
+        // Link JSON "year" to this property
         [System.Text.Json.Serialization.JsonPropertyName("year")]
         public int Year { get; set; }
 
+        // Store genres as a list of strings
         [System.Text.Json.Serialization.JsonPropertyName("genre")]
         public string[] Genres { get; set; }
 
@@ -26,8 +28,10 @@ namespace MovieExplorer.Models
         [System.Text.Json.Serialization.JsonPropertyName("emoji")]
         public string Emoji { get; set; }
 
-        // Helper properties for your UI labels
+        // Join genre list into one string 
         public string GenresDisplay => Genres != null ? string.Join(", ", Genres) : "N/A";
+
+        // Format rating with a star for better display
         public string RatingDisplay => $"⭐ {ImdbRating}";
     }
 }

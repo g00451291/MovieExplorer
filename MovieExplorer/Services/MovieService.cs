@@ -10,6 +10,7 @@ namespace MovieExplorer.Services
 {
     public static class Movieservice
     {
+        // The web link where the movie JSON file is stored
         private const string Url = "https://raw.githubusercontent.com/DONH-ITS/jsonfiles/refs/heads/main/moviesemoji.json";
 
         private static readonly string CachePath = Path.Combine(FileSystem.AppDataDirectory, "movies_cache.json");
@@ -18,7 +19,8 @@ namespace MovieExplorer.Services
         {
             string json;
 
-            if(File.Exists(CachePath))
+            // Check if already have a saved copy of the movies
+            if (File.Exists(CachePath))
             {
                 json = await File.ReadAllTextAsync(CachePath);
             }
@@ -26,6 +28,7 @@ namespace MovieExplorer.Services
             {
                 using var client = new HttpClient();
                 json = await client.GetStringAsync(Url);
+
                 await File.WriteAllTextAsync(CachePath, json);
             }
 
@@ -33,6 +36,7 @@ namespace MovieExplorer.Services
             {
                 PropertyNameCaseInsensitive = true
             };
+
             return JsonSerializer.Deserialize<List<Movie>>(json, options) ?? new List<Movie>();
         }
     }

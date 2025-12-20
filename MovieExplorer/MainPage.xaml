@@ -5,19 +5,16 @@
              x:Class="MovieExplorer.MainPage"
              Title="Movie Explorer">
 
-    <ContentPage.BindingContext>
-        <viewmodels:MoviesViewModel />
-    </ContentPage.BindingContext>
-
     <Grid RowDefinitions="Auto, *">
-        <SearchBar Grid.Row="0" 
-                   Placeholder="Search movies by title..." 
-                   Text="{Binding SearchText}" 
-                   Margin="10"/>
+        <SearchBar x:Name="MovieSearchBar"
+           Placeholder="Search by title or genre..."
+           TextChanged="OnSearchTextChanged" 
+           Margin="10"/>
 
-        <CollectionView Grid.Row="1" 
-                        ItemsSource="{Binding FilteredMovies}"
-                        EmptyView="No movies found.">
+        <CollectionView x:Name="MoviesList" 
+                Grid.Row="1" 
+                ItemsSource="{Binding .}" 
+                EmptyView="No movies found.">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout Padding="15" Spacing="15">
